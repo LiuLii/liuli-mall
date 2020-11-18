@@ -26,7 +26,7 @@ Page({
     //总页数
     totalPages:1
   },
-
+  
   // 从子组件传递过来
   handleTabsItemChange(e){
     //1 获取数据子组件传过来的数据
