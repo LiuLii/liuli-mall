@@ -1,4 +1,84 @@
-<view>
-首页
-<text class="iconfont icon-shoucang"></text>
-</view>
+<!-- 
+  1 收货地址
+ -->
+ <view class="revice_address_row">
+   <!-- 收货地址不存在的时候，按钮存在,对象 哪怕是空对象，boolean值也是true -->
+   <view class="address_btn" wx:if="{{!address.userName}}">
+     <button bindtap="handleChooseAddress" type="primary" plain="{{true}}">获取收货地址</button>
+   </view>
+   <!-- 收货地址存在时， 详细信息就显示 -->
+   <view class="address_detail" wx:else>
+    
+     <view class="user_info">
+       <view> {{address.userName}}</view>
+       <view >{{address.all}}</view>
+     </view>
+     <view class="user_phone">{{address.telNumber}}</view>
+   </view>
+ </view>
+ <!-- 购物车 标题和内容 -->
+ <view class="cart_content">
+   <view class="cart_title">
+     购物车
+   </view>
+   <!-- 购物车的主体 所有购车 -->
+   <view class="cart_main">
+     <!-- 购物车的item 循环项 -->
+      <view class="cart_item"
+      wx:for="{{cart}}"
+      wx:key="goods_id"
+      >
+        <!-- 左侧 复选框 -->
+        <view class="cart_chk_wrap">
+          <checkbox-group data-id="{{item.goods_id}}" bindchange="handleItemChange">
+            <checkbox class="" value="" checked="{{item.checked}}">
+            </checkbox>
+          </checkbox-group>
+        </view>
+        <!-- 中间 商品图片 是一个超链接 发生跳转 -->
+        <navigator class="cart_image_wrap" target="" url="" open-type="navigate">
+          <image class="" src="{{item.goods_small_logo}}" mode="widthFix" lazy-load="false" binderror="" bindload="">
+          </image>
+        </navigator>
+        <!-- 右侧 商品信息 -->
+        <view class="cart_info_wrap">
+          <!-- 商品名称 -->
+          <view class="goods_name">{{item.goods_name}}</view>
+          <!-- 商品价格 数量 -->
+          <view class="goods_price_num">
+            <!-- 价格 -->
+            <view class="goods_price">￥{{item.goods_price}}</view>
+            <!-- 数量 -->
+            <view class="cart_num_tool">
+              <view class="num_edit">-</view>
+              <view class="goods_num">{{item.num}}</view>
+              <view class="num_edit">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+   </view>
+ </view>
+
+  <!-- 底部工具栏 -->
+  <view class="footer_tool">
+    <!-- left 全选 -->
+    <view class="all_chk_wrap">
+      <checkbox-group bindchange="">
+        <checkbox checked="{{allChecked}}">全选</checkbox> 
+      </checkbox-group>
+    </view>
+
+    <!-- 价格总计 -->
+    <view class="total_price_wrap">
+      <view class="total_price">
+        合计：<text class="total_price_text">￥{{totalPrice}}</text>
+      </view>
+      <view class="goods_youfei">包含运费</view>
+    </view>
+
+    <!-- 结算 -->
+    <view class="order_pay_wrap">
+      结算({{totalNum}})
+    </view>
+  </view>
